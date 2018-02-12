@@ -42,14 +42,10 @@ public class PhoneVerificationActivity extends AppCompatActivity {
                 if (response == null) {
                     // Llamamos al listener
                     MobileiaFirebase.getInstance().processErrorResponse("El usuario ha cancelado el proceso.");
-                }
-
-                if (response.getErrorCode() == ErrorCodes.NO_NETWORK) {
+                }else if (response.getErrorCode() == ErrorCodes.NO_NETWORK) {
                     // Llamamos al listener
-                    MobileiaFirebase.getInstance().processErrorResponse("No se dispone de conexion a internet.");return;
-                }
-
-                if (response.getErrorCode() == ErrorCodes.UNKNOWN_ERROR) {
+                    MobileiaFirebase.getInstance().processErrorResponse("No se dispone de conexion a internet.");
+                } else if (response.getErrorCode() == ErrorCodes.UNKNOWN_ERROR) {
                     // Llamamos al listener
                     MobileiaFirebase.getInstance().processErrorResponse("Se ha producido un error inesperado");
                 }
