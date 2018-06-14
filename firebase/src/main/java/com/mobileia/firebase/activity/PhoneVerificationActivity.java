@@ -42,10 +42,10 @@ public class PhoneVerificationActivity extends AppCompatActivity {
                 if (response == null) {
                     // Llamamos al listener
                     MobileiaFirebase.getInstance().processErrorResponse("El usuario ha cancelado el proceso.");
-                }else if (response.getErrorCode() == ErrorCodes.NO_NETWORK) {
+                }else if (response.getError().getErrorCode() == ErrorCodes.NO_NETWORK) {
                     // Llamamos al listener
                     MobileiaFirebase.getInstance().processErrorResponse("No se dispone de conexion a internet.");
-                } else if (response.getErrorCode() == ErrorCodes.UNKNOWN_ERROR) {
+                } else if (response.getError().getErrorCode() == ErrorCodes.UNKNOWN_ERROR) {
                     // Llamamos al listener
                     MobileiaFirebase.getInstance().processErrorResponse("Se ha producido un error inesperado");
                 }
@@ -59,7 +59,9 @@ public class PhoneVerificationActivity extends AppCompatActivity {
                 AuthUI.getInstance()
                         .createSignInIntentBuilder()
                         .setAvailableProviders(
-                                Arrays.asList(new AuthUI.IdpConfig.Builder(AuthUI.PHONE_VERIFICATION_PROVIDER).build()))
+                                Arrays.asList(
+                                        new AuthUI.IdpConfig.PhoneBuilder().build()
+                                ))
                         .build(),
                 SIGN_IN_WITH_PHONE);
     }
